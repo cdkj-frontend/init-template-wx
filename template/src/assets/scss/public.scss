@@ -1,0 +1,20 @@
+@import './animation.scss';
+// @import '../fonts/iconfont.scss';
+
+img[lazy=loading] {
+  display: block;
+  width: 40px!important;
+  height: 4.5rem;
+  margin: auto;
+}
+img[lazy=loaded] {
+  animation: fadeIn 0.8s;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

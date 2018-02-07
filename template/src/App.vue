@@ -1,60 +1,106 @@
 <template>
+  <!-- <div id="app" @touchmove.prevent> -->
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>\{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <transition :name="transitionName">
+      <keep-alive :exclude="['cart']">
+        <router-view class="router"/>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
 <script>
+import { showPageLoading, pageLoadingTime, pageLoadingDelay } from '@/config'
+
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      loadingBegin: null, // 记录加载开始时间
+      timer: null
+    }
+  },
+  computed: {
+    transitionName () {
+      return this.$store.state.direction
+    },
+    isLoading () {
+      return this.$store.state.isLoading
+    }
+  },
+  watch: {
+    isLoading (newValue) {
+      if (!showPageLoading) { // 如果设置为不显示页面loading时则直接退出
+        return
+      }
+      if (newValue) { // 页面状态更新为加载中时
+        this.loadingBegin = new Date() // 用于计算loading显示间隔和显示时长
+        if (this.timer) {
+          clearTimeout(this.timer)
+          this.timer = null
+        }
+        this.timer = setTimeout(() => {
+          this.$dialog.loading.open('加载中...')
+        }, pageLoadingDelay)
+      } else if (this.loadingBegin) { // 页面状态更新为加载完成且存在loading图标，则清除loading
+        this.closeLoading()
+      } else { // 未知情况
+        console.warn('loading异常关闭')
+        this.$dialog.loading.close()
+      }
+    }
+  },
+  methods: {
+    /*
+     * 1.当在loading显示间隔时间前更新到完成状态时则清空定时器直接退出，反之则关闭页面loading效果
+     * 2.显示loading的情况下，判断loading持续时间是否达到配置最小时间，若达到则关闭，反之持续到最小时间再行关闭
+     */
+    closeLoading () {
+      const now = new Date()
+      const during = now.getTime() - this.loadingBegin.getTime()
+      if (during < pageLoadingDelay && this.timer) { // 在loading显示前加载完成时，则取消加载图标
+        clearTimeout(this.timer)
+        this.timer = null
+      } else { // 已显示加载图标情况下，控制达到最小显示时长再关闭
+        if (during > pageLoadingTime) {
+          this.$dialog.loading.close()
+        } else {
+          const delay = pageLoadingTime - during
+          setTimeout(() => {
+            this.$dialog.loading.close()
+          }, delay)
+        }
+      }
+    }
+  },
+  created () {
+    if (this.isLoading && showPageLoading) {
+      this.$dialog.loading.open('加载中...')
+      this.loadingBegin = new Date()
     }
   }
 }
 </script>
 
-<style{{#sass}} lang="scss"{{/sass}}>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+  @import './assets/scss/public.scss';
+  @import './assets/scss/variables.scss';
 
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .router {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    background-color: $--bg-color;
+    transform: translateZ(0); // 开启硬件加速
+  }
+  .scroll {
+    background-color: $--bg-color;
+  }
 </style>
