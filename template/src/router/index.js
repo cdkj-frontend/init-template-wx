@@ -15,7 +15,10 @@ const router = new Router({
     {
       path: '/',
       name: 'hello-world',
-      component: Helloworld
+      component: Helloworld,
+      meta: {
+        title: 'Helloworld'
+      }
     }
   ]
 })
