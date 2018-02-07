@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import { Confirm, Alert, Toast, Notify, Loading } from 'vue-ydui/dist/lib.rem/dialog'
+import checkAuth from './checkAuth'
 
 export default () => {
+
   Vue.prototype.$dialog = {
     confirm: Confirm,
     alert: Alert,

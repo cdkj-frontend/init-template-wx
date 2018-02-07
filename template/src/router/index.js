@@ -1,46 +1,21 @@
 import Vue from 'vue'
 import store from '@/store'
 import Router from 'vue-router'
-import { templateName } from '@/config'
-import viewList from './templates'
 
 Vue.use(Router)
+
+const Helloworld = (resolve) => {
+  import('@/view/Helloworld').then((module) => {
+    resolve(module)
+  })
+}
 
 const router = new Router({
   routes: [
     {
       path: '/',
-      component: viewList[templateName].Index,
-      children: [{
-        path: '/',
-        redirect: {
-          name: 'home'
-        }
-      }, {
-        path: '/home',
-        name: 'home',
-        component: viewList[templateName].Home
-      }, {
-        path: '/cart',
-        name: 'cart',
-        meta: {
-          title: '购物车',
-          keepalive: false
-        },
-        component: viewList[templateName].Cart
-      }, {
-        path: '/center',
-        name: 'center',
-        component: viewList[templateName].Center
-      }]
-    }, {
-      path: '/product',
-      name: 'product',
-      component: viewList[templateName].Product
-    }, {
-      path: '/pay',
-      name: 'pay',
-      component: viewList[templateName].Pay
+      name: 'hello-world'
+      component: Helloworld,
     }
   ]
 })

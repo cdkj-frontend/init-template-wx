@@ -1,6 +1,6 @@
 <template>
   <div class="checkbox" @click="handleCheck">
-    <input class="check-box" v-model="isCheck" type="checkbox"/>
+    <input class="check-box" :checked="isCheck" name="checkbox" :type="type"/>
   </div>
 </template>
 
@@ -12,10 +12,18 @@
         isCheck: this.value
       }
     },
-    props: ['value'],
+    props: {
+      value: {
+      },
+      type: {
+        default: () => {
+          return 'checkbox'
+        }
+      }
+    },
     watch: {
       isCheck (value) {
-        this.$emit('input', this.isCheck)
+        this.$emit('input', value)
       },
       value (value) {
         this.isCheck = value
@@ -23,8 +31,10 @@
     },
     methods: {
       handleCheck () {
-        this.isCheck = !this.isCheck
-        this.$emit('handleChange')
+        if (this.type === 'checkbox' || !this.isCheck) {
+          this.isCheck = !this.isCheck
+          this.$emit('handleChange')
+        }
       }
     }
   }

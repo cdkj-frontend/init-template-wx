@@ -2,7 +2,7 @@
   <!-- <div id="app" @touchmove.prevent> -->
   <div id="app">
     <transition :name="transitionName">
-      <keep-alive :exclude="['cart']">
+      <keep-alive>
         <router-view class="router"/>
       </keep-alive>
     </transition>
@@ -11,6 +11,7 @@
 
 <script>
 import { showPageLoading, pageLoadingTime, pageLoadingDelay } from '@/config'
+import checkAuth from '@/assets/js/checkAuth'
 
 export default {
   name: 'app',
@@ -74,6 +75,7 @@ export default {
     }
   },
   created () {
+    checkAuth(this)
     if (this.isLoading && showPageLoading) {
       this.$dialog.loading.open('加载中...')
       this.loadingBegin = new Date()
@@ -93,7 +95,7 @@ export default {
   }
   .router {
     width: 100%;
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     height: 100%;

@@ -1,10 +1,12 @@
-$--main-color: #6FB1AE;
+$--main-color: #00a0dc;
 $--active-main-color: mix(#000, $--main-color, 10%) !default;
-$--assistant-color: #F79323;
+// $--assistant-color: #6FB1AE;
+$--assistant-color: #00a0dc;
 
 /* color */
 $--bg-color: #f5f5f5;
 $--color-lazyload: #FFF;
+$--price-color: #FF3300;
 
 /* font */
 $--text-color: #323232;
@@ -12,7 +14,7 @@ $--tip-color: #909399; // 提示性文字
 $--disable-color: #D9D9D9;
 
 /* footbar */
-$--footbar-height: 50px;
+$--footbar-height: 1rem;
 
 /* line */
 $--line-color: #D9D9D9;
@@ -22,10 +24,11 @@ $--line-color-light: #EBEEF5;
 $--home-nav-height: 52px;
 
 /* cart */
-$--cart-total-height: 0.9rem;
+$--cart-total-height: 1rem;
+$--cart-bottom-height: 0.9rem;
 
 /* pay */
-$--pay-total-height: 0.8rem;
+$--pay-total-height: 0.9rem;
 
 /* checkbox */
 $--checkbox-height: 0.42rem;
@@ -36,4 +39,4 @@ $--product-img-size-sm: 2.3rem;
 
 /* btn */
 $--btn-bottom-height: 1rem;
-$--btn-bottom-font-size: 16px;
+$--btn-bottom-font-size: 14px;

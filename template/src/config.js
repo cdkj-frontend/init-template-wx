@@ -8,12 +8,10 @@ export const showLoading = true
 export const showRequestLoading = true
 export const loadingTime = 500 // loading图标最小持续时间
 export const requestTimeOut = 5000
-export const baseUrl = 'http://wx.gzmeihou.cn/web/api/'
-export const wechatUrl = 'http://wx.gzmeihou.cn/wechat-api/wechat/'
-// export const baseUrl = 'http://www.hubeta.com/web/api/'
+export const baseUrl = 'http://www.guonijuice.com/guoni/api/'
 
 // variables
-export const sysAccount = 'WGLM'
-export const mainColor = '#6FB1AE'
-export const assistantColor = '#F79323'
+export const sysAccount = 'GUONI'
+export const mainColor = '#00a0dc'
+export const assistantColor = '#00a0dc'
 export const templateName = 'base'
