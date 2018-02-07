@@ -14,8 +14,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'hello-world'
-      component: Helloworld,
+      name: 'hello-world',
+      component: Helloworld
     }
   ]
 })
