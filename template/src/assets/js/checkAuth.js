@@ -52,11 +52,11 @@ const getUser = (code, vm) => {
 }
 
 const getAuth = (vm) => {
-  const access_code = getUrlParam('code')
-  if (access_code === undefined || access_code === null || access_code === '') {
+  const accessCode = getUrlParam('code')
+  if (accessCode === undefined || accessCode === null || accessCode === '') {
     getAuthorizeURL()
   } else {
-    getUser(access_code, vm)
+    getUser(accessCode, vm)
   }
 }
 
@@ -66,7 +66,7 @@ export default (vm) => {
     return false
   }
   const conId = window.localStorage.getItem(`conId${sysAccount}`)
-  if (conId === undefined || conId=== null || conId === '') {
+  if (conId === undefined || conId === null || conId === '') {
     getAuth(vm)
   }
 }

@@ -5,5 +5,5 @@ export default {
   conId: window.localStorage.getItem('conIdGUONI'),
   openId: window.localStorage.getItem('openIdGUONI'),
   isLoading: true,
-  direction: 'forward',
+  direction: 'forward'
 }

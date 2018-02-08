@@ -45,7 +45,7 @@ Vue.use(Lazyload, {
 init()
 
 /* eslint-disable no-new */
-const vm = new Vue({
+new Vue({
   el: '#app',
   router,
   store,

@@ -10,5 +10,5 @@ export default {
   },
   setOpenId (state, openId) {
     state.openId = openId
-  },
+  }
 }
