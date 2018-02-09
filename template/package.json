@@ -17,11 +17,11 @@
   },
   "lint-staged": {
     "src/**/*.js": [
-      "npm run formatter",
+      "formatter",
       "git add"
     ],
     "src/**/*.vue": [
-      "npm run formatter",
+      "formatter",
       "git add"
     ]
   },
