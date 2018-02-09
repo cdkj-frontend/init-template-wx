@@ -11,17 +11,17 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "formatter": "eslint --fix --ext .js,.vue src ",
+    "formatter": "eslint --fix --ext .js,.vue src test/unit/specs test/e2e/specs",
     "build": "node build/build.js",
     "precommit": "lint-staged"
   },
   "lint-staged": {
     "src/**/*.js": [
-      "eslint --fix",
+      "npm run formatter",
       "git add"
     ],
     "src/**/*.vue": [
-      "eslint --fix",
+      "npm run formatter",
       "git add"
     ]
   },
